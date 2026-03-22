@@ -1,0 +1,36 @@
+{
+  "name": "beyaz-kus-ai",
+  "version": "2.5.0",
+  "description": "Dünyanın en hızlı AI asistanı - Çoklu dil destekli, matematik dehası, sesli konuşma",
+  "main": "index_bagimsiz.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "build": "echo 'Build process complete'",
+    "deploy": "echo 'Ready for deployment'",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "ai",
+    "asistan",
+    "yapay zeka",
+    "türkçe",
+    "multilingual",
+    "math",
+    "speech",
+    "pwa",
+    "beyaz kus"
+  ],
+  "author": "Ödül Ensar Yılmaz",
+  "license": "MIT",
+  "homepage": "https://beyazkus.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beyazkus/beyaz-kus-ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beyazkus/beyaz-kus-ai/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

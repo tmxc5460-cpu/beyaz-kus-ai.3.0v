@@ -1,0 +1,243 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- GTA 5 Stil Gradient -->
+    <linearGradient id="gtaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff006e;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#8338ec;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3a86ff;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#06c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffbe0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Neon Glow Effect -->
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Shadow Effect -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#ff006e" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+  
+  <!-- Arka Plan - Dark Gradient -->
+  <rect width="1080" height="1920" fill="#1a1a2e"/>
+  
+  <!-- Arka Plan Animasyonlu Gradient -->
+  <rect width="1080" height="1920" fill="url(#gtaGradient)" opacity="0.1">
+    <animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Arka Plan Pattern -->
+  <g opacity="0.1">
+    <circle cx="200" cy="400" r="150" fill="none" stroke="url(#gtaGradient)" stroke-width="3">
+      <animate attributeName="r" values="150;180;150" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="880" cy="1520" r="200" fill="none" stroke="url(#gtaGradient)" stroke-width="3">
+      <animate attributeName="r" values="200;240;200" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="880" cy="400" r="120" fill="none" stroke="url(#gtaGradient)" stroke-width="3">
+      <animate attributeName="r" values="120;150;120" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="1520" r="180" fill="none" stroke="url(#gtaGradient)" stroke-width="3">
+      <animate attributeName="r" values="180;220;180" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Parlayan Yıldızlar -->
+  <g opacity="0.6">
+    <circle cx="100" cy="200" r="2" fill="#ff006e" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="980" cy="200" r="2" fill="#8338ec" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="100" cy="1720" r="2" fill="#3a86ff" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="980" cy="1720" r="2" fill="#06c" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="540" cy="100" r="2" fill="#ffbe0b" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1;0" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="540" cy="1820" r="2" fill="#ff006e" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1;0" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Ana Başlık - BEYAZ KUŞ -->
+  <text x="540" y="600" 
+        font-family="Arial Black" 
+        font-size="120" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="url(#gtaGradient)" 
+        text-transform="uppercase"
+        filter="url(#shadow)">
+    BEYAZ KUŞ
+    <animate attributeName="opacity" values="0;1" dur="1s" begin="0s" fill="freeze"/>
+  </text>
+  
+  <!-- Alt Başlık - ULTRA -->
+  <text x="540" y="750" 
+        font-family="Arial Black" 
+        font-size="80" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="url(#gtaGradient)" 
+        text-transform="uppercase"
+        filter="url(#shadow)">
+    ULTRA
+    <animate attributeName="opacity" values="0;1" dur="1s" begin="0.5s" fill="freeze"/>
+  </text>
+  
+  <!-- Ana Beyaz Kuş Şekli - Büyük -->
+  <g transform="translate(540, 1100)" filter="url(#neonGlow)">
+    <!-- Kuş Vücudu -->
+    <path d="M -200 -50 
+             C -200 -150, -100 -200, 0 -200
+             C 100 -200, 200 -150, 200 -50
+             C 200 50, 150 100, 50 100
+             L -50 100
+             C -150 100, -200 50, -200 -50 Z" 
+          fill="url(#gtaGradient)" 
+          stroke="url(#gtaGradient)" 
+          stroke-width="6">
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="1s" fill="freeze"/>
+    </path>
+    
+    <!-- Kuş Kanatları -->
+    <path d="M -200 -50
+             C -300 -100, -350 -50, -300 0
+             C -250 50, -200 25, -150 0
+             M 200 -50
+             C 300 -100, 350 -50, 300 0
+             C 250 50, 200 25, 150 0" 
+          fill="none" 
+          stroke="url(#gtaGradient)" 
+          stroke-width="8"
+          stroke-linecap="round">
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="1.2s" fill="freeze"/>
+    </path>
+    
+    <!-- Kuş Gözü -->
+    <circle cx="-75" cy="-50" r="20" fill="#00ff88" filter="url(#neonGlow)">
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="1.4s" fill="freeze"/>
+    </circle>
+    <circle cx="-75" cy="-50" r="10" fill="#1a1a2e">
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="1.5s" fill="freeze"/>
+    </circle>
+    
+    <!-- Kuş Gaga -->
+    <path d="M -200 -50 L -250 -40 L -200 -30 Z" fill="url(#gtaGradient)">
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="1.6s" fill="freeze"/>
+    </path>
+    
+    <!-- AI Sembolü -->
+    <text x="0" y="50" 
+          font-family="Arial Black" 
+          font-size="60" 
+          font-weight="bold" 
+          text-anchor="middle" 
+          fill="#00ff88" 
+          filter="url(#neonGlow)">
+      AI
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="1.8s" fill="freeze"/>
+    </text>
+  </g>
+  
+  <!-- Özellikler -->
+  <g transform="translate(540, 1400)">
+    <!-- Hız Özelliği -->
+    <text x="-300" y="0" 
+          font-family="Arial" 
+          font-size="24" 
+          text-anchor="middle" 
+          fill="#00ff88" 
+          filter="url(#neonGlow)">
+      ⚡ HIZLI
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="2s" fill="freeze"/>
+    </text>
+    
+    <!-- Zeka Özelliği -->
+    <text x="0" y="0" 
+          font-family="Arial" 
+          font-size="24" 
+          text-anchor="middle" 
+          fill="#00ff88" 
+          filter="url(#neonGlow)">
+      🧠 ZEKİ
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="2.2s" fill="freeze"/>
+    </text>
+    
+    <!-- Çoklu Dil Özelliği -->
+    <text x="300" y="0" 
+          font-family="Arial" 
+          font-size="24" 
+          text-anchor="middle" 
+          fill="#00ff88" 
+          filter="url(#neonGlow)">
+      🌍 ÇOKLU DİL
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="2.4s" fill="freeze"/>
+    </text>
+  </g>
+  
+  <!-- Loading Bar -->
+  <g transform="translate(540, 1600)">
+    <rect x="-200" y="0" width="400" height="8" fill="#333" rx="4"/>
+    <rect x="-200" y="0" width="400" height="8" fill="url(#gtaGradient)" rx="4">
+      <animate attributeName="width" values="0;400" dur="3s" begin="2.5s" repeatCount="1"/>
+    </rect>
+    <text x="0" y="30" 
+          font-family="Arial" 
+          font-size="18" 
+          text-anchor="middle" 
+          fill="#00ff88">
+      Yükleniyor...
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="2.5s" fill="freeze"/>
+    </text>
+  </g>
+  
+  <!-- Versiyon Bilgisi -->
+  <text x="540" y="1750" 
+        font-family="Arial" 
+        font-size="24" 
+        text-anchor="middle" 
+        fill="#00ff88" 
+        opacity="0.8">
+    v1.0
+    <animate attributeName="opacity" values="0;0.8" dur="1s" begin="3s" fill="freeze"/>
+  </text>
+  
+  <!-- Geliştirici Bilgisi -->
+  <text x="540" y="1800" 
+        font-family="Arial" 
+        font-size="20" 
+        text-anchor="middle" 
+        fill="#00ff88" 
+        opacity="0.6">
+    Ödül Ensar Yılmaz
+    <animate attributeName="opacity" values="0;0.6" dur="1s" begin="3.2s" fill="freeze"/>
+  </text>
+  
+  <!-- Dekoratif Çizgiler -->
+  <g opacity="0.4">
+    <line x1="200" y1="850" x2="300" y2="850" stroke="url(#gtaGradient)" stroke-width="4">
+      <animate attributeName="opacity" values="0;0.4" dur="1s" begin="2s" fill="freeze"/>
+    </line>
+    <line x1="780" y1="850" x2="880" y2="850" stroke="url(#gtaGradient)" stroke-width="4">
+      <animate attributeName="opacity" values="0;0.4" dur="1s" begin="2.1s" fill="freeze"/>
+    </line>
+    <line x1="200" y1="1300" x2="300" y2="1300" stroke="url(#gtaGradient)" stroke-width="4">
+      <animate attributeName="opacity" values="0;0.4" dur="1s" begin="2.2s" fill="freeze"/>
+    </line>
+    <line x1="780" y1="1300" x2="880" y2="1300" stroke="url(#gtaGradient)" stroke-width="4">
+      <animate attributeName="opacity" values="0;0.4" dur="1s" begin="2.3s" fill="freeze"/>
+    </line>
+  </g>
+</svg>

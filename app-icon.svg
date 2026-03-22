@@ -1,0 +1,149 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- GTA 5 Stil Gradient -->
+    <linearGradient id="gtaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff006e;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#8338ec;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3a86ff;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#06c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffbe0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Neon Glow Effect -->
+    <filter id="neonGlow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Shadow Effect -->
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#ff006e" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  
+  <!-- Arka Plan - Dark Gradient -->
+  <rect width="512" height="512" fill="url(#gtaGradient)" opacity="0.1"/>
+  <rect width="512" height="512" fill="#1a1a2e"/>
+  
+  <!-- Arka Plan Pattern -->
+  <g opacity="0.1">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="url(#gtaGradient)" stroke-width="2"/>
+    <circle cx="400" cy="400" r="120" fill="none" stroke="url(#gtaGradient)" stroke-width="2"/>
+    <circle cx="400" cy="100" r="60" fill="none" stroke="url(#gtaGradient)" stroke-width="2"/>
+    <circle cx="100" cy="400" r="100" fill="none" stroke="url(#gtaGradient)" stroke-width="2"/>
+  </g>
+  
+  <!-- Ana Beyaz Kuş Şekli -->
+  <g transform="translate(256, 256)" filter="url(#neonGlow)">
+    <!-- Kuş Vücudu -->
+    <path d="M -80 -20 
+             C -80 -60, -40 -80, 0 -80
+             C 40 -80, 80 -60, 80 -20
+             C 80 20, 60 40, 20 40
+             L -20 40
+             C -60 40, -80 20, -80 -20 Z" 
+          fill="url(#gtaGradient)" 
+          stroke="url(#gtaGradient)" 
+          stroke-width="3"/>
+    
+    <!-- Kuş Kanatları -->
+    <path d="M -80 -20
+             C -120 -40, -140 -20, -120 0
+             C -100 20, -80 10, -60 0
+             M 80 -20
+             C 120 -40, 140 -20, 120 0
+             C 100 20, 80 10, 60 0" 
+          fill="none" 
+          stroke="url(#gtaGradient)" 
+          stroke-width="4"
+          stroke-linecap="round"/>
+    
+    <!-- Kuş Gözü -->
+    <circle cx="-30" cy="-20" r="8" fill="#00ff88" filter="url(#neonGlow)"/>
+    <circle cx="-30" cy="-20" r="4" fill="#1a1a2e"/>
+    
+    <!-- Kuş Gaga -->
+    <path d="M -80 -20 L -100 -15 L -80 -10 Z" fill="url(#gtaGradient)"/>
+    
+    <!-- AI Sembolü -->
+    <text x="0" y="20" 
+          font-family="Arial Black" 
+          font-size="24" 
+          font-weight="bold" 
+          text-anchor="middle" 
+          fill="#00ff88" 
+          filter="url(#neonGlow)">AI</text>
+  </g>
+  
+  <!-- Üst Banner - GTA 5 Stili -->
+  <rect x="0" y="0" width="512" height="80" fill="url(#gtaGradient)" opacity="0.8"/>
+  <text x="256" y="50" 
+        font-family="Arial Black" 
+        font-size="32" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="#ffffff" 
+        text-transform="uppercase"
+        filter="url(#shadow)">BEYAZ KUŞ</text>
+  
+  <!-- Alt Banner - ULTRA -->
+  <rect x="0" y="432" width="512" height="80" fill="url(#gtaGradient)" opacity="0.8"/>
+  <text x="256" y="480" 
+        font-family="Arial Black" 
+        font-size="28" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="#ffffff" 
+        text-transform="uppercase"
+        filter="url(#shadow)">ULTRA</text>
+  
+  <!-- Dekoratif Elementler -->
+  <g opacity="0.6">
+    <!-- Sol üst köşe -->
+    <circle cx="50" cy="50" r="3" fill="#ff006e" filter="url(#neonGlow)"/>
+    <circle cx="70" cy="50" r="3" fill="#8338ec" filter="url(#neonGlow)"/>
+    <circle cx="90" cy="50" r="3" fill="#3a86ff" filter="url(#neonGlow)"/>
+    
+    <!-- Sağ üst köşe -->
+    <circle cx="422" cy="50" r="3" fill="#ff006e" filter="url(#neonGlow)"/>
+    <circle cx="442" cy="50" r="3" fill="#8338ec" filter="url(#neonGlow)"/>
+    <circle cx="462" cy="50" r="3" fill="#3a86ff" filter="url(#neonGlow)"/>
+    
+    <!-- Sol alt köşe -->
+    <circle cx="50" cy="462" r="3" fill="#ff006e" filter="url(#neonGlow)"/>
+    <circle cx="70" cy="462" r="3" fill="#8338ec" filter="url(#neonGlow)"/>
+    <circle cx="90" cy="462" r="3" fill="#3a86ff" filter="url(#neonGlow)"/>
+    
+    <!-- Sağ alt köşe -->
+    <circle cx="422" cy="462" r="3" fill="#ff006e" filter="url(#neonGlow)"/>
+    <circle cx="442" cy="462" r="3" fill="#8338ec" filter="url(#neonGlow)"/>
+    <circle cx="462" cy="462" r="3" fill="#3a86ff" filter="url(#neonGlow)"/>
+  </g>
+  
+  <!-- Hız Çizgileri -->
+  <g opacity="0.4">
+    <line x1="100" y1="200" x2="150" y2="200" stroke="url(#gtaGradient)" stroke-width="2"/>
+    <line x1="362" y1="200" x2="412" y2="200" stroke="url(#gtaGradient)" stroke-width="2"/>
+    <line x1="100" y1="312" x2="150" y2="312" stroke="url(#gtaGradient)" stroke-width="2"/>
+    <line x1="362" y1="312" x2="412" y2="312" stroke="url(#gtaGradient)" stroke-width="2"/>
+  </g>
+  
+  <!-- Versiyon Bilgisi -->
+  <text x="256" y="350" 
+        font-family="Arial" 
+        font-size="14" 
+        text-anchor="middle" 
+        fill="#00ff88" 
+        opacity="0.8">v1.0</text>
+  
+  <!-- Geliştirici Bilgisi -->
+  <text x="256" y="370" 
+        font-family="Arial" 
+        font-size="12" 
+        text-anchor="middle" 
+        fill="#00ff88" 
+        opacity="0.6">Ödül Ensar Yılmaz</text>
+</svg>

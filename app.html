@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEYAZ KUŞ - Mobil Uygulama İndir</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+        .app-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .download-button {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .phone-mockup {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .phone-screen {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .step-indicator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="app-container w-full max-w-6xl rounded-3xl shadow-2xl p-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="floating inline-block mb-4">
+                <i class="fas fa-dove text-6xl text-purple-600"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">BEYAZ KUŞ</h1>
+            <p class="text-xl text-gray-600 mb-2">Dünyanın En Hızlı AI Asistanı</p>
+            <p class="text-lg text-purple-600 font-semibold">Mobil Uygulama v1.0</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <!-- Sol Taraf - Telefon Görseli -->
+            <div class="text-center">
+                <div class="phone-mockup inline-block">
+                    <div class="phone-screen w-64 h-96 relative">
+                        <div class="absolute top-0 left-0 right-0 bg-gradient-to-r from-purple-500 to-indigo-600 text-white p-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-bold">9:41</span>
+                                <div class="flex gap-1">
+                                    <i class="fas fa-signal text-xs"></i>
+                                    <i class="fas fa-wifi text-xs"></i>
+                                    <i class="fas fa-battery-full text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-dove text-4xl text-purple-600 mb-2"></i>
+                                <h3 class="font-bold text-gray-800">BEYAZ KUŞ</h3>
+                                <p class="text-xs text-gray-600">AI Asistan</p>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-3 mb-3">
+                                <div class="flex items-start gap-2">
+                                    <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-robot text-white text-xs"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-xs text-gray-800">⚡ Merhaba! Ben BEYAZ KUŞ...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 rounded-lg p-3 mb-3">
+                                <div class="flex items-start gap-2">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-white text-xs"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-xs text-gray-800">2+2 = ?</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-3 mb-3">
+                                <div class="flex items-start gap-2">
+                                    <div class="w-6 h-6 bg-purple-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-robot text-white text-xs"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-xs text-gray-800">🧮 Sonuç: 4</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-green-500 text-white text-xs py-2 rounded-lg">
+                                    <i class="fas fa-volume-up mr-1"></i>
+                                </button>
+                                <button class="flex-1 bg-orange-500 text-white text-xs py-2 rounded-lg">
+                                    <i class="fas fa-stop mr-1"></i>
+                                </button>
+                                <button class="flex-1 bg-red-500 text-white text-xs py-2 rounded-lg">
+                                    <i class="fas fa-trash mr-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-0 left-0 right-0 bg-gray-100 p-2">
+                            <div class="flex justify-center">
+                                <div class="w-20 h-1 bg-gray-400 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Taraf - İndirme Seçenekleri -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-mobile-alt mr-2"></i>Mobil Uygulamayı İndir
+                </h2>
+                
+                <!-- PWA Kurulum (Önerilen) -->
+                <div class="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl p-6 mb-4 text-white">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-globe text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">Web Uygulaması (PWA)</h3>
+                            <p class="text-sm opacity-90">Hiçbir indirme gerekmez</p>
+                        </div>
+                    </div>
+                    
+                    <button onclick="installPWA()" class="w-full bg-white text-purple-600 py-4 rounded-xl font-bold text-lg pulse mb-4">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Anında Yükle (Önerilen)
+                    </button>
+                    
+                    <div class="text-sm opacity-90">
+                        <p class="mb-2"><i class="fas fa-check mr-2"></i>Tüm telefonlarda çalışır</p>
+                        <p class="mb-2"><i class="fas fa-check mr-2"></i>Hiçbir indirme yok</p>
+                        <p><i class="fas fa-check mr-2"></i>Anında kullanım</p>
+                    </div>
+                </div>
+
+                <!-- Android APK İndirme -->
+                <div class="bg-white rounded-xl p-6 mb-4 border-2 border-green-500">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fab fa-android text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Android APK</h3>
+                            <p class="text-sm text-gray-600">Doğrudan indir ve kur</p>
+                        </div>
+                    </div>
+                    
+                    <button onclick="downloadAPK()" class="download-button w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-xl font-bold text-lg">
+                        <i class="fas fa-download mr-2"></i>
+                        APK İndir (Android) - Gerçek Dosya
+                    </button>
+                </div>
+
+                <!-- Kurulum Talimatları -->
+                <div class="bg-yellow-50 rounded-xl p-4">
+                    <h4 class="font-bold text-gray-800 mb-3">
+                        <i class="fas fa-info-circle text-yellow-500 mr-2"></i>
+                        Kolay Kurulum Adımları
+                    </h4>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div class="flex items-start gap-3">
+                            <div class="step-indicator">1</div>
+                            <p>"Anında Yükle" butonuna tıklayın</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="step-indicator">2</div>
+                            <p>Chrome menüsünden "Ana ekrana ekle" seçin</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="step-indicator">3</div>
+                            <p>"Yükle" butonuna basarak tamamlayın</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="step-indicator">4</div>
+                            <p>Uygulama ana ekranınıza eklensin!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Uygulama Alternatif -->
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-600 mb-2">Veya doğrudan web'de kullanın:</p>
+                    <button onclick="openWebApp()" class="text-purple-600 font-bold hover:text-purple-700">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        Web Uygulamasını Aç
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Özellikler -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-bolt text-purple-600 text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-800">Anında Cevap</h4>
+                <p class="text-sm text-gray-600">Dünyanın en hızlı AI'sı</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-calculator text-green-600 text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-800">Matematik Dehası</h4>
+                <p class="text-sm text-gray-600">Karmaşık hesaplamalar</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-volume-up text-blue-600 text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-800">Sesli Konuşma</h4>
+                <p class="text-sm text-gray-600">AI ile sesli sohbet</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PWA Kurulum
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(choiceResult) {
+                    if (choiceResult.outcome === 'accepted') {
+                        alert('BEYAZ KUŞ ana ekranınıza eklendi!');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // Manuel kurulum rehberi
+                alert('Chrome menüsünden (üç nokta) "Ana ekrana ekle" seçeneğini kullanın.');
+            }
+        }
+
+        function downloadAPK() {
+            // Gerçek APK dosyasını indir
+            const link = document.createElement('a');
+            link.href = 'beyaz-kus.apk';
+            link.download = 'beyaz-kus-v1.0.apk';
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Başarı mesajı
+            showDownloadSuccess();
+        }
+
+        function showDownloadSuccess() {
+            const message = document.createElement('div');
+            message.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            message.innerHTML = '<i class="fas fa-check-circle mr-2"></i>APK indiriliyor...';
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.innerHTML = '<i class="fas fa-check-circle mr-2"></i>APK başarıyla indirildi!';
+                message.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            }, 1000);
+            
+            setTimeout(() => {
+                document.body.removeChild(message);
+            }, 3000);
+        }
+
+        function openWebApp() {
+            window.open('index_mobile.html', '_blank');
+        }
+
+        // Mobil cihaz kontrolü
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            // Mobil cihazda özel optimizasyonlar
+            console.log('Mobil cihaz algılandı');
+        }
+    </script>
+</body>
+</html>

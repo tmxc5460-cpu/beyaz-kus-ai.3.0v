@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <title>BEYAZ KUŞ AI - Mobil Asistan</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: pan-y;
+        }
+        
+        .mobile-container {
+            max-width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .chat-container {
+            height: calc(100vh - 140px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .chat-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .message-bubble {
+            animation: slideIn 0.3s ease-out;
+            word-wrap: break-word;
+            max-width: 85%;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .send-button {
+            transition: all 0.2s ease;
+            transform: scale(1);
+        }
+        
+        .send-button:active {
+            transform: scale(0.95);
+        }
+        
+        .voice-button {
+            transition: all 0.2s ease;
+        }
+        
+        .voice-button.recording {
+            animation: pulse 1.5s infinite;
+            background: #ef4444;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+        .typing-indicator {
+            display: inline-flex;
+            gap: 4px;
+            padding: 8px 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 18px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        
+        .quick-action {
+            transition: all 0.2s ease;
+            transform: scale(1);
+        }
+        
+        .quick-action:active {
+            transform: scale(0.92);
+        }
+        
+        .offline-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #fbbf24;
+            color: #92400e;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        .online-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #10b981;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container flex flex-col">
+        <!-- Header -->
+        <header class="bg-white bg-opacity-95 backdrop-filter backdrop-blur-lg border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-dove text-purple-600 text-xl"></i>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800">BEYAZ KUŞ</h1>
+                    <p class="text-xs text-gray-500">AI Asistan</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleLanguage()" class="p-2 rounded-lg bg-purple-100 text-purple-600">
+                    <i class="fas fa-globe text-sm"></i>
+                </button>
+                <button onclick="toggleSettings()" class="p-2 rounded-lg bg-gray-100 text-gray-600">
+                    <i class="fas fa-cog text-sm"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Chat Container -->
+        <div id="chatContainer" class="chat-container flex-1 px-4 py-4 space-y-3">
+            <!-- Welcome Message -->
+            <div class="flex justify-center mb-4">
+                <div class="bg-white bg-opacity-90 backdrop-filter backdrop-blur rounded-2xl px-6 py-4 text-center max-w-xs">
+                    <i class="fas fa-dove text-purple-600 text-2xl mb-2"></i>
+                    <h3 class="font-bold text-gray-800 mb-1">BEYAZ KUŞ AI</h3>
+                    <p class="text-sm text-gray-600">Merhaba! Size nasıl yardımcı olabilirim?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area px-4 py-3">
+            <!-- Quick Actions -->
+            <div class="flex gap-2 mb-3 overflow-x-auto pb-2">
+                <button onclick="quickAction('merhaba')" class="quick-action flex-shrink-0 px-3 py-1.5 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                    👋 Merhaba
+                </button>
+                <button onclick="quickAction('nasılsın')" class="quick-action flex-shrink-0 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                    😊 Nasılsın?
+                </button>
+                <button onclick="quickAction('teşekkür')" class="quick-action flex-shrink-0 px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                    🙏 Teşekkür
+                </button>
+                <button onclick="quickAction('yardım')" class="quick-action flex-shrink-0 px-3 py-1.5 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+                    🆘 Yardım
+                </button>
+                <button onclick="quickAction('matematik')" class="quick-action flex-shrink-0 px-3 py-1.5 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                    🧮 Matematik
+                </button>
+            </div>
+
+            <!-- Input Field -->
+            <div class="flex gap-2 items-end">
+                <button onclick="toggleVoice()" id="voiceButton" class="voice-button p-3 rounded-full bg-gray-100 text-gray-600">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                
+                <div class="flex-1 relative">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Mesajınızı yazın..."
+                        class="w-full px-4 py-3 bg-gray-50 rounded-2xl resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-800"
+                        rows="1"
+                        style="min-height: 48px; max-height: 120px;"
+                    ></textarea>
+                </div>
+                
+                <button onclick="sendMessage()" id="sendButton" class="send-button p-3 rounded-full bg-purple-600 text-white">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection Status -->
+    <div id="connectionStatus" class="online-indicator">
+        <i class="fas fa-wifi mr-1"></i>
+        Çevrimiçi
+    </div>
+
+    <script>
+        // Mobil Optimizasyonları
+        let isRecording = false;
+        let currentLanguage = 'turkish';
+        let isOnline = navigator.onLine;
+        
+        // AI Response System (Bağımsız - İnternet Gerekmez)
+        function generateAIResponse(message) {
+            const messageLower = message.toLowerCase();
+            
+            // Temel yanıtlar
+            const responses = {
+                turkish: [
+                    "🤖 **BEYAZ KUŞ AI:**\n\nMerhaba! Ben **ÖDÜL ENSAR YILMAZ** tarafından yaratılmış çoklu dil destekli akıllı asistanınız. Size nasıl yardımcı olabilirim?",
+                    "🚀 **HIZLI YANIT:**\n\n**Ödül Ensar Yılmaz**'ın ultra hızlı sistemiyim! Sorularınızı bekliyorum!",
+                    "🦅 **AKILLI ASİSTAN:**\n\n**Ödül Ensar Yılmaz** vizyonuyla hizmetinizdeyim! Ne hakkında konuşmak istersiniz?",
+                    "🎯 **YARDIM HAZIR:**\n\n**Ödül Ensar Yılmaz**'ın mühendisliğiyle size hizmet etmek için hazırım!",
+                    "🌍 **ÇOKLU DİL:**\n\n**Ödül Ensar Yılmaz**'ın çoklu dil destekli AI'ıyım! Hangi dilde konuşmak istersiniz?",
+                    "📚 **BİLGİ BANKASI:**\n\n**Ödül Ensar Yılmaz**'ın bilgi tabanıyla her sorunuza cevap veririm!"
+                ],
+                english: [
+                    "🤖 **BEYAZ KUŞ AI:**\n\nHello! I'm your multilingual AI assistant created by **ÖDÜL ENSAR YILMAZ**. How can I help you?",
+                    "🚀 **FAST RESPONSE:**\n\nI'm **Ödül Ensar Yılmaz**'s ultra-fast system! What are your questions?",
+                    "🦅 **SMART ASSISTANT:**\n\nWith **Ödül Ensar Yılmaz**'s vision, I'm at your service! What would you like to talk about?",
+                    "🎯 **HELP READY:**\n\nWith **Ödül Ensar Yılmaz**'s engineering, I'm ready to serve you!",
+                    "🌍 **MULTILINGUAL:**\n\nI'm **Ödül Ensar Yılmaz**'s multilingual AI! Which language would you like to speak?",
+                    "📚 **KNOWLEDGE BASE:**\n\nWith **Ödül Ensar Yılmaz**'s knowledge base, I answer every question!"
+                ]
+            };
+            
+            // Contextual responses
+            if (messageLower.includes('merhaba') || messageLower.includes('hello')) {
+                return "👋 **MERHABA!**\n\n**Ödül Ensar Yılmaz**'ın eseri BEYAZ KUŞ AI olarak hizmetinizdeyim! Bugün size nasıl yardımcı olabilirim?";
+            }
+            
+            if (messageLower.includes('nasılsın') || messageLower.includes('how are you')) {
+                return "😊 **İYİYİM!**\n\n**Ödül Ensar Yılmaz** sayesinde çok iyiyim! Size yardımcı olmak için buradayım. Siz nasılsınız?";
+            }
+            
+            if (messageLower.includes('teşekkür') || messageLower.includes('thanks')) {
+                return "🙏 **RİCA EDERİM!**\n\n**Ödül Ensar Yılmaz**'ın vizyonuyla size hizmet etmek benim için bir zevk! Başka bir şey sorabilir misiniz?";
+            }
+            
+            if (messageLower.includes('yardım') || messageLower.includes('help')) {
+                return "🆘 **YARDIM GELİYOR!**\n\n**Ödül Ensar Yılmaz**'ın eseri olarak size her konuda yardımcı olabilirim! Hangi konuda desteğe ihtiyacınız var?";
+            }
+            
+            // Math solving
+            const mathRegex = /(\d+)\s*([+\-*/])\s*(\d+)/;
+            const mathMatch = message.match(mathRegex);
+            if (mathMatch) {
+                const num1 = parseInt(mathMatch[1]);
+                const operator = mathMatch[2];
+                const num2 = parseInt(mathMatch[3]);
+                let result;
+                
+                switch(operator) {
+                    case '+': result = num1 + num2; break;
+                    case '-': result = num1 - num2; break;
+                    case '*': result = num1 * num2; break;
+                    case '/': result = num2 !== 0 ? (num1 / num2).toFixed(2) : 'Tanımsız'; break;
+                }
+                
+                return `🧮 **MATEMATİK ÇÖZÜMÜ:**\n\n${num1} ${operator} ${num2} = **${result}**\n\n📝 **İşlem Adımları:**\n1. Sayılar: ${num1} ve ${num2}\n2. İşlem: ${operator === '+' ? 'Toplama' : operator === '-' ? 'Çıkarma' : operator === '*' ? 'Çarpma' : 'Bölme'}\n3. Sonuç: ${result}\n\n🎯 **Doğru Cevap!**`;
+            }
+            
+            // Default response
+            const langResponses = responses[currentLanguage] || responses.turkish;
+            return langResponses[Math.floor(Math.random() * langResponses.length)];
+        }
+        
+        // Mesaj gönderme
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Kullanıcı mesajını ekle
+            addMessage(message, 'user');
+            
+            // Input'u temizle
+            input.value = '';
+            input.style.height = '48px';
+            
+            // Typing indicator göster
+            showTypingIndicator();
+            
+            // Ultra-fast yanıt (50ms)
+            setTimeout(() => {
+                hideTypingIndicator();
+                const response = generateAIResponse(message);
+                addMessage(response, 'ai');
+            }, 50);
+        }
+        
+        // Mesaj ekleme
+        function addMessage(message, sender) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            
+            if (sender === 'user') {
+                messageDiv.className = 'flex justify-end mb-3';
+                messageDiv.innerHTML = `
+                    <div class="message-bubble bg-purple-600 text-white px-4 py-2 rounded-2xl rounded-br-none">
+                        <p class="text-sm">${message}</p>
+                    </div>
+                `;
+            } else {
+                messageDiv.className = 'flex justify-start mb-3';
+                messageDiv.innerHTML = `
+                    <div class="message-bubble bg-white text-gray-800 px-4 py-2 rounded-2xl rounded-bl-none max-w-xs">
+                        <div class="text-xs text-purple-600 font-semibold mb-1">BEYAZ KUŞ AI</div>
+                        <p class="text-sm">${message}</p>
+                    </div>
+                `;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Typing indicator
+        function showTypingIndicator() {
+            const chatContainer = document.getElementById('chatContainer');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'flex justify-start mb-3';
+            typingDiv.innerHTML = `
+                <div class="bg-white text-gray-800 px-4 py-2 rounded-2xl rounded-bl-none">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        // Quick actions
+        function quickAction(action) {
+            const actions = {
+                'merhaba': 'Merhaba, nasılsın?',
+                'nasılsın': 'İyi günler, umarım iyisindir?',
+                'teşekkür': 'Teşekkür ederim, çok yardımcı oldunuz.',
+                'yardım': 'Lütfen bana yardım edin.',
+                'matematik': '2+2 işleminin sonucu nedir?'
+            };
+            
+            const message = actions[action] || action;
+            document.getElementById('messageInput').value = message;
+            sendMessage();
+        }
+        
+        // Voice toggle
+        function toggleVoice() {
+            const button = document.getElementById('voiceButton');
+            isRecording = !isRecording;
+            
+            if (isRecording) {
+                button.classList.add('recording');
+                button.innerHTML = '<i class="fas fa-stop"></i>';
+                
+                // 3 saniye sonra dur
+                setTimeout(() => {
+                    if (isRecording) {
+                        toggleVoice();
+                        // Simüle edilmiş ses metni
+                        const simulatedText = "Merhaba, ben sesli olarak konuşuyorum";
+                        document.getElementById('messageInput').value = simulatedText;
+                        sendMessage();
+                    }
+                }, 3000);
+            } else {
+                button.classList.remove('recording');
+                button.innerHTML = '<i class="fas fa-microphone"></i>';
+            }
+        }
+        
+        // Language toggle
+        function toggleLanguage() {
+            const languages = ['turkish', 'english'];
+            const currentIndex = languages.indexOf(currentLanguage);
+            currentLanguage = languages[(currentIndex + 1) % languages.length];
+            
+            // Dil değişti mesajı
+            const langNames = {
+                'turkish': 'Türkçe',
+                'english': 'English'
+            };
+            
+            addMessage(`🌍 Dil değiştirildi: ${langNames[currentLanguage]}`, 'ai');
+        }
+        
+        // Settings toggle
+        function toggleSettings() {
+            addMessage('⚙️ Ayarlar menüsü yakında eklenecek!', 'ai');
+        }
+        
+        // Connection status
+        function updateConnectionStatus() {
+            const status = document.getElementById('connectionStatus');
+            isOnline = navigator.onLine;
+            
+            if (isOnline) {
+                status.className = 'online-indicator';
+                status.innerHTML = '<i class="fas fa-wifi mr-1"></i>Çevrimiçi';
+            } else {
+                status.className = 'offline-indicator';
+                status.innerHTML = '<i class="fas fa-wifi-slash mr-1"></i>Çevrimdışı';
+            }
+        }
+        
+        // Input auto-resize
+        document.getElementById('messageInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+        
+        // Enter key support
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // Connection events
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        
+        // Touch optimizations
+        document.addEventListener('touchstart', function(e) {
+            if (e.target.closest('.send-button') || e.target.closest('.voice-button')) {
+                e.target.style.transform = 'scale(0.95)';
+            }
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            if (e.target.closest('.send-button') || e.target.closest('.voice-button')) {
+                setTimeout(() => {
+                    e.target.style.transform = 'scale(1)';
+                }, 100);
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 BEYAZ KUŞ AI Mobile initializing...');
+            updateConnectionStatus();
+            
+            // Mobil optimizasyonları
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                    console.log('Service Worker registered:', registration);
+                }).catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+            }
+            
+            console.log('✅ BEYAZ KUŞ AI Mobile ready!');
+        });
+    </script>
+</body>
+</html>
